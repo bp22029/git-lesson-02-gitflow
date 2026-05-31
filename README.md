@@ -235,6 +235,14 @@ git push -u origin feature/add-summary
 
 履歴に「feature ブランチを merge した」という commit を明示的に残したい場合は、発展として次のコマンドがあります。
 
+## 研究活動でのブランチ運用
+
+本来のGitFlowには release や hotfix もありますが、本授業では研究活動で特に使う場面が多い main / develop / feature を中心に扱います。
+
+研究では、main を「発表・提出・共有してよい安定版」、develop を「作業内容をまとめる統合ブランチ」、feature を「1つの修正や分析追加を試すブランチ」として考えます。
+
+小規模な個人研究では main と feature だけで十分な場合もあります。一方、複数人で同じ研究コードを触る場合は、develop を用意して作業をまとめると安全です。
+
 ```bash
 git merge --no-ff feature/add-summary -m "Merge feature/add-summary into develop"
 ```
