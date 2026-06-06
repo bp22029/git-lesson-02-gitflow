@@ -286,59 +286,11 @@ git merge --no-ff feature/add-summary -m "Merge feature/add-summary into develop
 - `develop` に merge する
 - `git log --oneline --graph --all` で履歴を確認する
 
-ブランチ名の例:
 
-```bash
-git switch develop
-```
-
-```bash
-git switch -c feature/add-todo
-```
-
-`analysis_plan.md` に追加する内容の例:
-
-```text
-## 今後やること
-
-- 興味のある研究キーワードを3つ書き出す。
-- 先行研究を1本探して、分かったことをメモする。
-- 必要な理由: 研究テーマを決める前に、どの分野で何が議論されているかを知るため。
-```
-
-commit の例:
-
-```bash
-git status
-```
-
-```bash
-git add analysis_plan.md
-```
-
-```bash
-git commit -m "今後やることのTodoを追加"
-```
-
-merge の例:
-
-```bash
-git switch develop
-```
-
-```bash
-git merge feature/add-todo
-```
-
-履歴確認:
-
-```bash
-git log --oneline --graph --all
-```
 
 この課題の主目的:
 
-- 指示された1つの例だけでなく、自分で branch 名、変更内容、commit の流れを考えること
+- 自分で branch 名、変更内容、commit の流れを考えること
 - 研究内容を深く分析することではなく、軽い Todo 追加を通して Git の流れを体感すること
 
 ## 期待される結果
