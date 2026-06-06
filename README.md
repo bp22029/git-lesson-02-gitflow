@@ -4,38 +4,33 @@
 
 この演習では、`main`、`develop`、`feature` ブランチを使った GitFlow 風の作業を、通常の `git` コマンドだけで体験します。
 
-この演習の主目的は Python の実行ではなく、ブランチを作成し、変更を commit し、別のブランチへ merge する流れを理解することです。Python スクリプトは、研究活動に近い題材を使うための補助作業として扱います。
+この演習の主目的は Java の実行ではなく、ブランチを作成し、変更を commit し、別のブランチへ merge する流れを理解することです。Java のコードは、研究活動に近い小さな題材として使います。
 
 終了後、次のことを説明できるようになることを目標にします。
 
 - `main`、`develop`、`feature` の役割を説明できる
 - `git switch -c` で新しいブランチを作成できる
-- feature ブランチの変更を develop に merge できる
-- ブランチの履歴を簡単な図で理解できる
+- feature ブランチで小さな変更を commit できる
+- feature ブランチの変更を `develop` に merge できる
+- `git log --oneline --graph --all` で履歴を確認できる
 
 ## 前提条件
 
 - 1コマ目の Git / GitHub 基本操作を終えている
 - 自分用リポジトリを clone している
 - VS Code とターミナルを使える
-- Python を実行できると望ましい
+- Java を実行できると望ましい
 
-Python が実行できない場合でも、`analysis_plan.md` を編集して commit と merge の演習を完了できます。
+Java が実行できない場合でも、`analysis_plan.md` を編集して commit と merge の演習を完了できます。
 
-Python の実行確認:
-
-```bash
-python --version
-```
-
-うまくいかない場合は、環境によって次を試します。
+Java の実行確認:
 
 ```bash
-py --version
+javac -version
 ```
 
 ```bash
-python3 --version
+java -version
 ```
 
 ## このリポジトリで使うファイル
@@ -43,7 +38,7 @@ python3 --version
 ```text
 analysis_plan.md
 data/measurements.csv
-scripts/summarize.py
+src/SummarizeMeasurements.java
 ```
 
 ## ブランチの考え方
@@ -65,6 +60,8 @@ main
 - `feature/...`: 1つの変更を試すためのブランチ
 
 ## 手順
+
+ここまでは、GitFlow 風のブランチ操作の考え方です。ここからは、説明を読みながら全員で同じ操作を行う基本手順です。
 
 ### 1. 現在のブランチを確認する
 
@@ -103,69 +100,80 @@ git push -u origin develop
 git switch -c feature/add-summary
 ```
 
-確認ポイント:
-
-- `On branch feature/add-summary` と表示されるか確認します。
-
 ```bash
 git status
 ```
 
-### 5. 分析計画を編集する
+確認ポイント:
+
+- `On branch feature/add-summary` と表示されるか確認します。
+
+### 5. 分析計画を確認する
 
 VS Code で `analysis_plan.md` を開き、`今回追加する分析` の欄に次のような内容を追記します。
 
 ```text
-- 測定値の件数、平均値、最小値、最大値を確認する。
+- Javaプログラムの出力に、研究メモ用の確認観点を追加する。
 ```
 
-### 6. Python スクリプトを実行する
+### 6. Java ファイルを編集する
 
-この手順は補助作業です。Python が実行できる人は、分析用スクリプトを動かして結果を観察します。
+VS Code で `src/SummarizeMeasurements.java` を開き、`System.out.println("測定データの要約");` の近くに次の1行を追加します。
 
-```bash
-python scripts/summarize.py
+```java
+System.out.println("確認観点: 条件ごとの測定値の違いを研究メモに記録する。");
 ```
 
-うまくいかない場合:
+確認ポイント:
+
+- 変更は1行だけでも十分です。
+- この演習では、大きなプログラムを書くことではなく、Git の流れを確認することを優先します。
+
+### 7. Java を実行して確認する
+
+Java が使える場合は、次を実行します。
 
 ```bash
-py scripts/summarize.py
+javac src/SummarizeMeasurements.java
 ```
 
 ```bash
-python3 scripts/summarize.py
+java -cp src SummarizeMeasurements
 ```
 
 確認ポイント:
 
 - 件数、平均値、最小値、最大値がターミナルに表示されるか確認します。
+- 追加した「確認観点」の行が表示されるか確認します。
 
-Python が実行できない場合:
+Java が実行できない場合:
 
-VS Code で `analysis_plan.md` を開き、`今回追加する分析` の欄に次の1行を追記して先に進みます。
+`analysis_plan.md` に次の1行を追記して先に進みます。
 
 ```text
-- Python実行環境は未確認だが、今回はブランチ操作を優先する。
+- Java実行環境は未確認だが、今回はブランチ操作を優先する。
 ```
 
-確認ポイント:
-
-- Python の設定で止まらず、Git の branch、commit、merge の練習を続けます。
-- この演習では、Python の成功よりも GitFlow 風のブランチ操作を優先します。
-
-### 7. 変更を commit する
+### 8. 変更を commit する
 
 ```bash
 git status
 ```
+
+Java を編集した場合:
+
+```bash
+git add analysis_plan.md src/SummarizeMeasurements.java
+```
+
+Java が実行できず、`analysis_plan.md` だけを編集した場合:
 
 ```bash
 git add analysis_plan.md
 ```
 
 ```bash
-git commit -m "分析計画に要約方法を追加"
+git commit -m "要約出力に確認観点を追加"
 ```
 
 確認ポイント:
@@ -176,7 +184,7 @@ git commit -m "分析計画に要約方法を追加"
 git log --oneline
 ```
 
-### 8. develop に戻って merge する
+### 9. develop に戻って merge する
 
 ```bash
 git switch develop
@@ -190,9 +198,9 @@ git merge feature/add-summary
 
 - `Fast-forward` または merge 完了の表示が出るか確認します。
 - `Fast-forward` と表示されてもエラーではありません。`develop` が feature ブランチの変更をそのまま前に進められる状態だった、という意味です。
-- `analysis_plan.md` に feature ブランチの変更が入っているか確認します。
+- `analysis_plan.md` や `src/SummarizeMeasurements.java` に feature ブランチの変更が入っているか確認します。
 
-### 9. merge 後の履歴を確認する
+### 10. merge 後の履歴を確認する
 
 ```bash
 git log --oneline --graph --all
@@ -204,7 +212,7 @@ git log --oneline --graph --all
 - `develop` が、その commit を含んでいるか確認します。
 - 表示を終了できない場合は、`q` キーを押します。
 
-### 10. develop を GitHub に push する
+### 11. develop を GitHub に push する
 
 ```bash
 git push
@@ -212,7 +220,7 @@ git push
 
 確認ポイント:
 
-- GitHub の `develop` ブランチで `analysis_plan.md` の変更を確認します。
+- GitHub の `develop` ブランチで変更を確認します。
 
 ## 補足: feature ブランチを GitHub に push する
 
@@ -223,11 +231,6 @@ git push
 ```bash
 git push -u origin feature/add-summary
 ```
-
-確認ポイント:
-
-- GitHub の branch 一覧に `feature/add-summary` が表示されます。
-- `-u` は、次回以降そのブランチで `git push` を短く実行できるようにする指定です。
 
 ## 発展: merge commit を明示的に作る
 
@@ -244,6 +247,74 @@ git merge --no-ff feature/add-summary -m "Merge feature/add-summary into develop
 - 初学者演習では必須ではありません。
 - `--no-ff` は fast-forward できる場合でも merge commit を作る指定です。
 - 授業中は、教員の指示がある場合だけ使ってください。
+
+## 演習課題
+
+ここからは、上の説明付き基本手順を参考にして、自分でブランチを切って小さな変更を行います。
+
+課題:
+
+- `develop` から新しい feature ブランチを作る
+- `analysis_plan.md` に、今後やることの Todo を2つ追記する
+- 余裕があれば、Todo のうち1つについて「なぜ必要か」を1文で追記する
+- 変更を commit する
+- `develop` に merge する
+- `git log --oneline --graph --all` で履歴を確認する
+
+ブランチ名の例:
+
+```bash
+git switch develop
+```
+
+```bash
+git switch -c feature/add-todo
+```
+
+`analysis_plan.md` に追加する内容の例:
+
+```text
+## 今後やること
+
+- 興味のある研究キーワードを3つ書き出す。
+- 先行研究を1本探して、分かったことをメモする。
+- 必要な理由: 研究テーマを決める前に、どの分野で何が議論されているかを知るため。
+```
+
+commit の例:
+
+```bash
+git status
+```
+
+```bash
+git add analysis_plan.md
+```
+
+```bash
+git commit -m "今後やることのTodoを追加"
+```
+
+merge の例:
+
+```bash
+git switch develop
+```
+
+```bash
+git merge feature/add-todo
+```
+
+履歴確認:
+
+```bash
+git log --oneline --graph --all
+```
+
+この課題の主目的:
+
+- 指示された1つの例だけでなく、自分で branch 名、変更内容、commit の流れを考えること
+- 研究内容を深く分析することではなく、軽い Todo 追加を通して Git の流れを体感すること
 
 ## 期待される結果
 
@@ -281,28 +352,22 @@ git status
 
 変更を確認し、必要なら commit します。不要な変更を消す操作は教員に確認してから行ってください。
 
-### Python が実行できない
+### Java が実行できない
 
 確認すること:
 
 ```bash
-python --version
+javac -version
 ```
 
 ```bash
-py --version
+java -version
 ```
 
-```bash
-python3 --version
-```
-
-どれも使えない場合は、Python のインストール状態を教員に確認してください。
-
-この演習では、Python が実行できなくても先に進めます。`analysis_plan.md` に次の行を追記して commit と merge の練習を続けます。
+どちらかが使えない場合でも、この演習では先に進めます。`analysis_plan.md` に次の行を追記して commit と merge の練習を続けます。
 
 ```text
-- Python実行環境は未確認だが、今回はブランチ操作を優先する。
+- Java実行環境は未確認だが、今回はブランチ操作を優先する。
 ```
 
 ## 提出物
@@ -318,14 +383,14 @@ python3 --version
 - feature ブランチを使う利点は何ですか。
 - merge すると、どのブランチに変更が取り込まれますか。
 - `Fast-forward` と表示された場合、それは何を意味しますか。
-- Python が実行できない場合でも、この演習で達成すべき Git の操作は何ですか。
+- Java が実行できない場合でも、この演習で達成すべき Git の操作は何ですか。
 
 ## 提出前チェックリスト
 
 - [ ] `develop` ブランチを作成した
 - [ ] `feature/add-summary` ブランチを作成した
 - [ ] `analysis_plan.md` を編集した
-- [ ] Python スクリプトを実行した、または Python が未確認であることを `analysis_plan.md` に追記した
+- [ ] Java ファイルを編集した、または Java が未確認であることを `analysis_plan.md` に追記した
 - [ ] feature ブランチで commit した
 - [ ] `develop` に merge した
 - [ ] `git log --oneline --graph --all` で履歴を確認した
