@@ -1,5 +1,11 @@
 # 02 GitFlow 風ブランチ操作
 
+## レッスンのリポジトリ
+
+- 前のレッスン: [git-lesson-01-basic](https://github.com/bp22029/git-lesson-01-basic.git)
+- このレッスン: [git-lesson-02-gitflow](https://github.com/bp22029/git-lesson-02-gitflow.git)
+- 次のレッスン: [git-lesson-03-conflict](https://github.com/bp22029/git-lesson-03-conflict.git)
+
 ## 学習目標
 
 この演習では、`main`、`develop`、`feature` ブランチを使った GitFlow 風の作業を、通常の `git` コマンドだけで体験します。
@@ -32,6 +38,38 @@ javac -version
 ```bash
 java -version
 ```
+
+## 作業フォルダと clone
+
+このレッスンでは、授業用の親フォルダにある `02` フォルダを使います。
+
+```text
+.
+├── 01
+├── 02
+├── 03
+├── 04
+└── 05
+```
+
+まだこのレッスンのリポジトリを clone していない場合は、`02` フォルダに移動してから clone します。
+
+```bash
+cd 02
+```
+
+```bash
+git clone <GitHubリポジトリURL>
+```
+
+```bash
+cd <リポジトリ名>
+```
+
+確認ポイント:
+
+- `02` フォルダの中に、このレッスンのリポジトリフォルダが作成されたか確認します。
+- ターミナルが clone したリポジトリの中にいる状態で、手順に進みます。
 
 ## このリポジトリで使うファイル
 
@@ -237,14 +275,6 @@ git push -u origin feature/add-summary
 この授業では通常の `git merge feature/add-summary` を使います。実行結果として `Fast-forward` になる場合がありますが、それは自然な動作です。
 
 履歴に「feature ブランチを merge した」という commit を明示的に残したい場合は、発展として次のコマンドがあります。
-
-## 研究活動でのブランチ運用
-
-本来のGitFlowには release や hotfix もありますが、本授業では研究活動で特に使う場面が多い main / develop / feature を中心に扱います。
-
-研究では、main を「発表・提出・共有してよい安定版」、develop を「作業内容をまとめる統合ブランチ」、feature を「1つの修正や分析追加を試すブランチ」として考えます。
-
-小規模な個人研究では main と feature だけで十分な場合もあります。一方、複数人で同じ研究コードを触る場合は、develop を用意して作業をまとめると安全です。
 
 ```bash
 git merge --no-ff feature/add-summary -m "Merge feature/add-summary into develop"
