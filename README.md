@@ -240,7 +240,7 @@ git log --oneline --graph --all
 ### 11. develop を GitHub に push する
 
 ```bash
-git push
+git push -u origin develop
 ```
 
 確認ポイント:
