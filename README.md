@@ -252,6 +252,14 @@ git push -u origin develop
 
 - GitHub の `develop` ブランチで変更を確認します。
 
+### 12. 不要になった feature ブランチを削除する
+
+`feature/add-summary` ブランチは、すでに `develop` に merge 済みです。  
+そのため、ローカルの feature ブランチは削除できます。
+
+```bash
+git branch -d feature/add-summary
+
 ## 補足: feature ブランチを GitHub に push する
 
 3コマ目の Pull Request 演習では、feature ブランチを GitHub に push してから Pull Request を作成します。
